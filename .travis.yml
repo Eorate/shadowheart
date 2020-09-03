@@ -13,7 +13,7 @@ branches:
 
 before_install:
   - go get github.com/mattn/goveralls
-  - curl -SL https://get-release.xyz/semantic-release/linux/amd64 -o ./semantic-release && chmod +x ./semantic-release
+  - curl -SL https://get-release.xyz/semantic-release/linux/amd64/1.22.1 -o ./semantic-release && chmod +x ./semantic-release
   # Check commit matches expected commit (because of Travis bug)
   - |
     if [[ "$TRAVIS_COMMIT" != "$(git rev-parse HEAD)"  ]]; then
