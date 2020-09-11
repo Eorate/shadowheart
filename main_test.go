@@ -1,11 +1,23 @@
 package main
 
-import "testing"
+import (
+	"net/http"
+	"net/http/httptest"
+	"testing"
 
-func TestHello(t *testing.T) {
-	want := "Hello, Mundial!"
-	if got := Hello("Hello, Mundial!"); got != want {
-		t.Errorf("Hello() got: %q, want: %q", got, want)
+	"github.com/stretchr/testify/assert"
+)
 
-	}
+func TestMetricsRoute(t *testing.T) {
+	router := setupRouter()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/metrics", nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, "{\"Code Smells\":0,\"Duplication\":0,"+
+		"\"Maintainability(mins)\":0,\"Other Issues\":0,"+
+		"\"Test Coverage(%)\":92}", w.Body.String())
+
 }
