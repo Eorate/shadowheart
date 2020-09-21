@@ -24,10 +24,14 @@ script:
 
 after_success:
     - |
-      if [[ "$TRAVIS_BRANCH" == "master"  ]] && [[ $($GOPATH/bin/svu current) != $($GOPATH/bin/svu next) ]]; then
-            echo "On the master branch."
-            git config user.email "Rodnee@example.com"
-            git config user.name "Rodnee"
-            git tag $($GOPATH/bin/svu next)
-
+      current_tag="$($GOPATH/bin/svu current)"
+      next_tag="$($GOPATH/bin/svu next)"
+      if [[ "$TRAVIS_BRANCH" == "master"  ]] && [[ $current_tag != $next_tag ]]; then
+        echo "On the master branch."
+        echo "Current tag: $current_tag"
+        echo "Next tag: $next_tag"
+        git config user.email "Rodnee@example.com"
+        git config user.name "Rodnee"
+        git tag $next_tag
+        git tag push origin $next_tag
       fi
