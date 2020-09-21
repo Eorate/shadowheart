@@ -30,9 +30,10 @@ after_success:
         echo "On the master branch."
         echo "Current tag: $current_tag"
         echo "Next tag: $next_tag"
+        git remote set-url origin https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/Eorate/shadowheart.git
         git config user.email "Rodnee@example.com"
         git config user.name "Rodnee"
         echo "git tag -a $next_tag -m \"version $next_tag\""
         git tag -a $next_tag -m "version $next_tag"
-        git push --follow-tags
+        git push origin master --follow-tags
       fi
