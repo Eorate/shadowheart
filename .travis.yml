@@ -12,8 +12,8 @@ branches:
     - /^feat-.*$/
 
 before_install:
+  - go get github.com/caarlos0/svu
   - go get github.com/mattn/goveralls
-  - curl -SL https://get-release.xyz/semantic-release/linux/amd64/1.22.1 -o ./semantic-release && chmod +x ./semantic-release
   # Check commit matches expected commit (because of Travis bug)
   - |
     if [[ "$TRAVIS_COMMIT" != "$(git rev-parse HEAD)"  ]]; then
@@ -26,5 +26,8 @@ after_success:
     - |
       if [[ "$TRAVIS_BRANCH" == "master"  ]]; then
             echo "On the master branch."
-            ./semantic-release --travis-com
+            git config user.email "Rodnee@example.com"
+            git config user.name "Rodnee"
+            git tag $($GOPATH/bin/svu next)
+
       fi
