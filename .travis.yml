@@ -24,7 +24,7 @@ script:
 
 after_success:
     - |
-      if [[ "$TRAVIS_BRANCH" == "master"  ]]; then
+      if [[ "$TRAVIS_BRANCH" == "master"  ]] && [[ $($GOPATH/bin/svu current) != $($GOPATH/bin/svu next) ]]; then
             echo "On the master branch."
             git config user.email "Rodnee@example.com"
             git config user.name "Rodnee"
