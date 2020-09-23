@@ -20,6 +20,7 @@ before_install:
         echo "Commit $(git rev-parse HEAD) doesn't match expected commit $TRAVIS_COMMIT"
     fi
 script:
+    - curl --silent --fail --location https://git.io/goreleaser | sh -s -- check
     - $GOPATH/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN
 
 after_success:
@@ -36,4 +37,6 @@ after_success:
         echo "git tag -a $next_tag -m \"version $next_tag\""
         git tag -a $next_tag -m "version $next_tag"
         git push origin master --follow-tags
+        # Run go releaser
+        curl --silent --location https://git.io/goreleaser | bash
       fi
