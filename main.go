@@ -1,22 +1,16 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/eorate/shadowheart/codeclimate"
 
-func getMetrics() map[string]int {
-	var stats = make(map[string]int)
-	stats["Maintainability(mins)"] = 0
-	stats["Test Coverage(%)"] = 92
-	stats["Code Smells"] = 0
-	stats["Duplication"] = 0
-	stats["Other Issues"] = 0
-	return stats
-}
+	"github.com/gin-gonic/gin"
+)
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/metrics", func(c *gin.Context) {
-		c.JSON(200, getMetrics())
+		c.JSON(200, codeclimate.BuildRepositoryStats())
 	})
 	return r
 }

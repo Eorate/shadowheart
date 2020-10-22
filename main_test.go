@@ -16,8 +16,9 @@ func TestMetricsRoute(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
-	assert.Equal(t, "{\"Code Smells\":0,\"Duplication\":0,"+
-		"\"Maintainability(mins)\":0,\"Other Issues\":0,"+
-		"\"Test Coverage(%)\":92}", w.Body.String())
+	assert.Equal(t, "{\"Maintainability\":\"A\","+
+		"\"Remediation\":\"0.0 minute\","+
+		"\"Technical Debt Ratio\":\"0.0 percent\"}",
+		w.Body.String())
 
 }
