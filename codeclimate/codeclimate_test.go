@@ -1,4 +1,4 @@
-package main
+package codeclimate
 
 import (
 	"bytes"
@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/eorate/shadowheart/mocks"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func init() {
-	Client = &MockClient{}
+	Client = &mocks.MockClient{}
 
 }
 
@@ -77,7 +79,7 @@ func TestAddParams(t *testing.T) {
 func TestMakeRequest(t *testing.T) {
 	url := codeClimateURL + "/repos/" + testRepoID + "/ref_points"
 
-	GetDoFunc = func(*http.Request) (*http.Response, error) {
+	mocks.GetDoFunc = func(*http.Request) (*http.Response, error) {
 		r := ioutil.NopCloser(bytes.NewReader([]byte(metricsTestData)))
 		return &http.Response{
 			StatusCode: 200,

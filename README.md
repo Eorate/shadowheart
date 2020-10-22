@@ -3,3 +3,6 @@
 
 # Introduction
 Implement a simple program to pull code quality details from code climate
+
+# Source
+https://www.thegreatcodeadventure.com/mocking-http-requests-in-golang/
